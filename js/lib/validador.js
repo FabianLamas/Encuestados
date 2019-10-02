@@ -37,27 +37,17 @@ $('#localStorageForm')
       .insertBefore($template),
       $option = $clone.find('[name="option[]"]');
 
-    // agregado de nuevo campo al formulario
     $('#localStorageForm').formValidation('addField', $option);
   })
-
-  // Manejo del boton agregar respuesta
   .on('click', '.botonBorrarRespuesta', function() {
     var $row = $(this).parents('.form-group'),
       $option = $row.find('[name="option[]"]');
 
-    // Eliminar elemento conteniendo la opcion
     $row.remove();
-
-    // Eliminar campo del formulario
     $('#localStorageForm').formValidation('removeField', $option);
   })
 
-  // Llamada después de eliminar el campo
   .on('added.field.fv', function(e, data) {
-    // data.field   --> nombre del campo
-    // data.element --> el nuevo elemento del campo
-    // data.options --> las nuevas opciones del campo
 
     if (data.field === 'option[]') {
       if ($('#localStorageForm').find(':visible[name="option[]"]').length >= 5) {
@@ -66,7 +56,6 @@ $('#localStorageForm')
     }
   })
 
-  // Llamada después de eliminar el campo
   .on('removed.field.fv', function(e, data) {
     if (data.field === 'option[]') {
       if ($('#localStorageForm').find(':visible[name="option[]"]').length < 5) {

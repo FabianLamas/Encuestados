@@ -1,13 +1,10 @@
-/*
- * Vista usuario
- */
+
 var VistaUsuario = function(modelo, controlador, elementos) {
   this.modelo = modelo;
   this.controlador = controlador;
   this.elementos = elementos;
   var contexto = this;
 
-  //suscripcion a eventos del modelo
   this.modelo.preguntaAgregada.suscribir(function() {
     contexto.reconstruirLista();
   });
@@ -26,7 +23,6 @@ var VistaUsuario = function(modelo, controlador, elementos) {
 };
 
 VistaUsuario.prototype = {
-  //muestra la lista por pantalla y agrega el manejo del boton agregar
   inicializar: function() {
     this.reconstruirLista();
     var elementos = this.elementos;
@@ -39,10 +35,8 @@ VistaUsuario.prototype = {
     this.reconstruirGrafico();
   },
 
-  //reconstruccion de los graficos de torta
   reconstruirGrafico: function(){
     var contexto = this;
-    //obtiene las preguntas del local storage
     var preguntas = this.modelo.preguntas;
     preguntas.forEach(function(clave) {
       var listaParaGrafico = [[clave.textoPregunta, "Cantidad"]];
@@ -66,14 +60,11 @@ VistaUsuario.prototype = {
           .attr({ value: clave.textoPregunta, id: clave.id })
           .html(clave.textoPregunta)
       );
-      //completar
-      //agregar a listaPreguntas un elemento div con valor "clave.textoPregunta", texto "clave.textoPregunta", id "clave.id"
       var respuestas = clave.cantidadPorRespuesta;
       contexto.mostrarRespuestas(listaPreguntas,respuestas, clave);
     })
   },
 
-  //muestra respuestas
   mostrarRespuestas:function(listaPreguntas,respuestas, clave){
     respuestas.forEach (function(elemento) {
       listaPreguntas.append($('<input>', {

@@ -1,13 +1,9 @@
-/*
- * Vista administrador
- */
+
 var VistaAdministrador = function(modelo, controlador, elementos) {
   this.modelo = modelo;
   this.controlador = controlador;
   this.elementos = elementos;
   var contexto = this;
-
-  // suscripción de observadores
   this.modelo.preguntaAgregada.suscribir(function() {
     contexto.reconstruirLista();
   });
@@ -24,9 +20,7 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
 
 
 VistaAdministrador.prototype = {
-  //lista
   inicializar: function() {
-    //llamar a los metodos para reconstruir la lista, configurar botones y validar formularios
     this.reconstruirLista();
     this.configuracionDeBotones();
     validacionDeFormulario();
@@ -39,8 +33,6 @@ VistaAdministrador.prototype = {
       id: pregunta.id,
       texto: pregunta.textoPregunta
     });
-    //completar
-    //asignar a nuevoitem un elemento li con clase "list-group-item", id "pregunta.id" y texto "pregunta.textoPregunta"
     var interiorItem = $('.d-flex');
     var titulo = interiorItem.find('h5');
     titulo.text(pregunta.textoPregunta);
@@ -64,7 +56,6 @@ VistaAdministrador.prototype = {
     var e = this.elementos;
     var contexto = this;
 
-    //asociacion de eventos a boton
     e.botonAgregarPregunta.click(function() {
       var value = e.pregunta.val();
       var respuestas = [];
@@ -76,7 +67,6 @@ VistaAdministrador.prototype = {
       contexto.limpiarFormulario();
       contexto.controlador.agregarPregunta(value, respuestas);
     });
-    //asociar el resto de los botones a eventos
     e.botonBorrarPregunta.click(function() {
       const id = parseInt($(".list-group-item.active").attr("id"));
       contexto.controlador.borrarPregunta(id);
